@@ -16,7 +16,7 @@ jobs:
 
         # Generate the website
         - name: Publish
-          run: dotnet publish Dinonames.Client.csproj --configuration Release
+          run: dotnet publish src/Dinonames.Client/Dinonames.Client.csproj --configuration Release
 
         # Publish the website
         - name: GitHub Pages action
