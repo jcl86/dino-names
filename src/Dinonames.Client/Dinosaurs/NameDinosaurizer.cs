@@ -16,49 +16,21 @@ namespace Dinonames.Client
 
         public string Dinosaurize(string name)
         {
-            if (name.Length < 3)
-            {
-                return name;
-            }
-
-            string result = string.Join("", Words(name));
-            return result.First().ToString().ToUpper() + result.Substring(1).ToLower();
-        }
-
-        private IEnumerable<string> Words(string name)
-        {
-            bool addPrefix = FiftyPercent();
             string prefix = "";
-            if (addPrefix)
+            if (FiftyPercent())
             {
-                prefix = DinosaurNames.Prefixes.ElementAt(random.Next(0, DinosaurNames.Prefixes.Count() - 1));
-                yield return prefix;
+                prefix = DinosaurNames.Prefixes.ElementAt(random.Next(0, DinosaurNames.Prefixes.Count()));
             }
 
-            if (addPrefix && IsVowel(name.First().ToString()) && IsVowel(prefix.Last().ToString()))
+            string suffix = "";
+            if (FiftyPercent())
             {
-                name = name.Substring(1);
+                suffix = DinosaurNames.Suffixes.ElementAt(random.Next(0, DinosaurNames.Suffixes.Count()));
             }
 
-            if (!addPrefix || FiftyPercent())
-            {
-                string suffix = DinosaurNames.Suffixes.ElementAt(random.Next(0, DinosaurNames.Suffixes.Count() - 1));
-                if (IsVowel(name.First().ToString()) && IsVowel(suffix.Last().ToString()))
-                {
-                    name = name.Substring(0, name.Length - 1);
-                }
-
-                yield return name + suffix;
-            }
-            else yield return name;
+            return new Name(prefix, name, suffix).ToString();
         }
 
         private bool FiftyPercent() => random.Next(0, 2) == 0;
-        private bool IsVowel(string character)
-            => character.ToLower().Equals("a") ||
-                character.ToLower().Equals("e") ||
-                 character.ToLower().Equals("i") ||
-                 character.ToLower().Equals("o") ||
-                 character.ToLower().Equals("u");
     }
 }
