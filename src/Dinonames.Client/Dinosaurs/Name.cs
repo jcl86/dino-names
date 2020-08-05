@@ -1,13 +1,22 @@
-﻿namespace Dinonames.Client
+﻿using System;
+
+namespace Dinonames.Client
 {
     public class Name
     {
+        public const int MinLength = 2;
+
         private readonly Word prefix;
         private readonly Word name;
         private readonly Word suffix;
 
         public Name(string prefix, string name, string suffix)
         {
+            if (name.Length <= MinLength)
+            {
+                throw new ArgumentOutOfRangeException($"{name} must be at least {MinLength} characters long");
+            }
+
             this.prefix = new Word(prefix);
             this.name = new Word(name);
             this.suffix = new Word(suffix);

@@ -5,19 +5,12 @@ namespace Dinonames.Client
 {
     public class Word
     {
-        public const int MinLength = 2;
-
         private readonly string name;
         public bool IsEmpty => string.IsNullOrEmpty(name);
 
         public Word(string name)
         {
             this.name = name;
-
-            if (name.Length <= MinLength)
-            {
-                throw new ArgumentOutOfRangeException($"{name} must be at least {MinLength} characters long");
-            }
         }
 
         public bool BeginsWithVocal => name.First().IsVowel();
